@@ -1,0 +1,3 @@
+Create and upload key pair
+Try on fresh AWS setup
+Docs
