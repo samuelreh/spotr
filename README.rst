@@ -1,8 +1,8 @@
 ===============================
-Spotter
+Spotr
 ===============================
 
-Spotter simplifies launching and destroying an AWS spot instance.
+Spotr simplifies launching and destroying an AWS spot instance.
 
 Quick Start
 -----------
@@ -10,22 +10,16 @@ First, install the library and set a default region:
 
 .. code-block:: sh
 
-    $ pip install spotter
+    $ pip install spotr
 
-Next, set up credentials (in e.g. ``~/.aws/credentials``):
+Next, set up credentials and region (in e.g. ``~/.aws/config``):
 
 .. code-block:: ini
 
     [default]
     aws_access_key_id = YOUR_KEY
     aws_secret_access_key = YOUR_SECRET
-
-Then, set up a default region (in e.g. ``~/.aws/config``):
-
-.. code-block:: ini
-
-    [default]
-    region=us-east-1
+    region=us-west-1
 
 Then, from a Python interpreter:
 

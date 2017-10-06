@@ -26,10 +26,6 @@ def _perform_request(client, config):
             'Placement': {
                 'AvailabilityZone': config.az,
             },
-            # "SubnetId": "subnet-1acc5841",
-            'SecurityGroupIds': [
-                config.security_group_id
-            ],
             'EbsOptimized': False
         }
     )

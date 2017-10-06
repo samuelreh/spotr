@@ -17,7 +17,6 @@ class TestSpotInstance(unittest.TestCase):
             key_name='test_ssh_key',
             instance_type='p2.xlarge',
             az='us-west-2a',
-            security_group_id='sg-123'
         )
         fake_client = Mock(boto3.client('ec2'))
         attrs = {

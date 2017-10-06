@@ -27,10 +27,6 @@ class Config:
         return float(self._config['max_bid'])
 
     @property
-    def security_group_id(self):
-        return self._config['security_group_id']
-
-    @property
     def ami(self):
         return self._config['ami']
 

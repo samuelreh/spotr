@@ -17,7 +17,6 @@ class TestLaunch(unittest.TestCase):
                 'ami': 'ami-1234',
                 'ami_tag': 'spotr',
                 'type': 'px-1-large',
-                'security_group_id': 'sg-1234',
                 'key_name': 'key-name',
             }
         }
