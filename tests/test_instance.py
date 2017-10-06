@@ -9,8 +9,9 @@ import spotr.instance as instance
 
 class TestInstanceFindLatest(unittest.TestCase):
     def runTest(self):
+        mock_config = Mock(ami_tag='spotr')
         fake_client, config = mock_client()
-        latest_instance = instance.find_latest(fake_client)
+        latest_instance = instance.find_latest(fake_client, mock_config)
         self.assertEqual(latest_instance.id, config['instance_id'])
         self.assertEqual(latest_instance.volume_id, config['volume_id'])
         self.assertEqual(latest_instance.launch_time, config['launch_time'])

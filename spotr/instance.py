@@ -17,10 +17,9 @@ class InstanceList():
         return sorted(self.instances, key=lambda i: i.launch_time)[0]
 
 
-def find_latest(client):
-    # TODO: This should be configurable
+def find_latest(client, config):
     instance_response = client.describe_instances(
-        Filters=[{'Name': 'tag:project', 'Values': ['spotr']}])
+        Filters=[{'Name': 'tag:project', 'Values': [config.ami_tag]}])
     return InstanceList(instance_response).latest()
 
 
@@ -28,11 +27,10 @@ def destroy(client, instance_id):
     return client.terminate_instances(InstanceIds=[instance_id])
 
 
-def tag(client, instance_id):
-    tag = 'spotr'
+def tag(client, instance_id, config):
     return client.create_tags(
         Resources=[instance_id],
-        Tags=[{'Key': 'project', 'Value': tag, }]
+        Tags=[{'Key': 'project', 'Value': config.ami_tag, }]
     )
 
 

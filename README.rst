@@ -25,7 +25,7 @@ Then, from a Python interpreter:
 
 .. code-block:: sh
 
-  $ spotr launch --type p2.xlarge --ami ami-4bf20033
+  $ spotr launch --type p2.xlarge --ami ami-4bf20033 --max-bid .030 --key-name aws-key-fast-ai
 
 When you're done with the instance, create a snapshot and detroy it with:
 

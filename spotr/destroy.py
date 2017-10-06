@@ -7,7 +7,8 @@ from config import Config
 
 def destroy(args):
     client = boto_client.build(args)
-    instance = ec2_instance.find_latest(client)
+    conf = Config(client, args)
+    instance = ec2_instance.find_latest(client, conf)
     _log_snapshot(instance)
     snap = snapshot.create_and_wait(client, instance.volume_id)
     _log_destroying()

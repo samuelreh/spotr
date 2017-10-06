@@ -1,3 +1,8 @@
+Print ssh command on launch
+Seperate ami_tag and instance_tag
 Create and upload key pair
-Try on fresh AWS setup
+Try out on fresh AWS setup
 Docs
+
+Create status endpoint (list all spot instances)
+Allow destroying by instance id
