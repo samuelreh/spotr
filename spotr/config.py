@@ -5,7 +5,7 @@ from botocore.configloader import raw_config_parse
 
 class Config:
     def __init__(self, client, args):
-        self._config = raw_config_parse("~/.spotter/config")['config']
+        self._config = raw_config_parse("~/.spotr/config")['config']
         self._config.update({k: v for k, v in vars(args).iteritems() if v})
         if 'ami' not in self._config and 'ami_tag' in self._config:
             ami_tag = self._config['ami_tag']

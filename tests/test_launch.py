@@ -3,19 +3,19 @@ import mock
 import boto3
 from mock import Mock, patch
 
-from spotter.launch import launch
+from spotr.launch import launch
 
 
 class TestLaunch(unittest.TestCase):
-    @patch('spotter.spot_instance.request')
-    @patch('spotter.pricing.get_az')
-    @patch('spotter.client.build')
+    @patch('spotr.spot_instance.request')
+    @patch('spotr.pricing.get_az')
+    @patch('spotr.client.build')
     def runTest(self, client_build, pricing_get_az, spot_request):
         attrs = {
             '__dict__': {
                 'max_bid': 0.30,
                 'ami': 'ami-1234',
-                'ami_tag': 'spotter',
+                'ami_tag': 'spotr',
                 'type': 'px-1-large',
                 'security_group_id': 'sg-1234',
                 'key_name': 'key-name',

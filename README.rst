@@ -31,10 +31,10 @@ Then, from a Python interpreter:
 
 .. code-block:: sh
 
-  $ spotter launch --type p2.xlarge --ami ami-4bf20033
+  $ spotr launch --type p2.xlarge --ami ami-4bf20033
 
 When you're done with the instance, create a snapshot and detroy it with:
 
 .. code-block:: sh
 
-  $ spotter destroy
+  $ spotr destroy

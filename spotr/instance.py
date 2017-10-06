@@ -20,7 +20,7 @@ class InstanceList():
 def find_latest(client):
     # TODO: This should be configurable
     instance_response = client.describe_instances(
-        Filters=[{'Name': 'tag:project', 'Values': ['spotter']}])
+        Filters=[{'Name': 'tag:project', 'Values': ['spotr']}])
     return InstanceList(instance_response).latest()
 
 
@@ -29,7 +29,7 @@ def destroy(client, instance_id):
 
 
 def tag(client, instance_id):
-    tag = 'spotter'
+    tag = 'spotr'
     return client.create_tags(
         Resources=[instance_id],
         Tags=[{'Key': 'project', 'Value': tag, }]

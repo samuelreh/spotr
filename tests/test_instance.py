@@ -4,7 +4,7 @@ import mock
 import boto3
 from mock import Mock, patch
 
-import spotter.instance as instance
+import spotr.instance as instance
 
 
 class TestInstanceFindLatest(unittest.TestCase):

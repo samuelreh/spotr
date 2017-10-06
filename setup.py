@@ -4,7 +4,7 @@ import os.path
 import re
 import sys
 from setuptools import find_packages, setup
-from spotter import __version__
+from spotr import __version__
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -23,11 +23,11 @@ def find_version(*file_paths):
 requires = ['boto3==1.4.7']
 
 setup(
-    name = 'spotter',
+    name = 'spotr',
     version = __version__,
     description = '',
     long_description=open('README.rst').read(),
-    url = 'https://github.com/samuelreh/spotter',
+    url = 'https://github.com/samuelreh/spotr',
     author = 'Samuel Reh',
     author_email = 'samuelreh@gmail.com',
     license = 'UNLICENSE',
@@ -53,7 +53,7 @@ setup(
     },
     entry_points = {
         'console_scripts': [
-            'spotter=spotter.spotter:main',
+            'spotr=spotr.spotr:main',
         ],
     },
 )

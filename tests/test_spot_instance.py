@@ -3,11 +3,11 @@ import mock
 import boto3
 from mock import Mock, patch
 
-from spotter.spot_instance import request
+from spotr.spot_instance import request
 
 
 class TestSpotInstance(unittest.TestCase):
-    @patch('spotter.instance.get_by_instance_id')
+    @patch('spotr.instance.get_by_instance_id')
     def runTest(self, test_patch):
         mock = Mock()
         test_patch.return_value = mock
