@@ -4,7 +4,7 @@ import launch
 import destroy
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--version', action='version', version='0.0.1')
+parser.add_argument('--version', action='version', version='0.0.2')
 subparsers = parser.add_subparsers()
 
 launch_parser = subparsers.add_parser('launch')

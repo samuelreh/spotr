@@ -4,3 +4,4 @@ Release to other versions
 
 Create status endpoint (list all spot instances)
 Allow destroying by instance id
+Allow skiping snapshot on destroy
