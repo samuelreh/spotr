@@ -15,7 +15,6 @@ class TestLaunch(unittest.TestCase):
             '__dict__': {
                 'max_bid': 0.30,
                 'ami': 'ami-1234',
-                'ami_tag': 'spotr',
                 'type': 'px-1-large',
                 'key_name': 'key-name',
             }

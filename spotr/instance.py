@@ -19,7 +19,7 @@ class InstanceList():
 
 def find_latest(client, config):
     instance_response = client.describe_instances(
-        Filters=[{'Name': 'tag:project', 'Values': [config.ami_tag]}])
+        Filters=[{'Name': 'tag:project', 'Values': [config.instance_tag]}])
     return InstanceList(instance_response).latest()
 
 
@@ -30,7 +30,7 @@ def destroy(client, instance_id):
 def tag(client, instance_id, config):
     return client.create_tags(
         Resources=[instance_id],
-        Tags=[{'Key': 'project', 'Value': config.ami_tag, }]
+        Tags=[{'Key': 'project', 'Value': config.instance_tag, }]
     )
 
 

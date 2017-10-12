@@ -24,4 +24,5 @@ def _log_launching(az):
 def _log_instance_creation(instance, conf):
     print(">> Instance launched, connect with:")
     ip = str(instance.ip_address)
-    print("ssh -i ~/.ssh/" + conf.key_name + " ubuntu@" + ip)
+    key_path = "~/.ssh/" + conf.key_name + ".pem"
+    print("ssh -i " + key_path + " ubuntu@" + ip)

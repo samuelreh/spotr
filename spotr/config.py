@@ -19,6 +19,13 @@ class Config:
             return 'spotr'
 
     @property
+    def instance_tag(self):
+        if 'instance_tag' in self._config:
+            return self._config['instance_tag']
+        else:
+            return 'spotr'
+
+    @property
     def type(self):
         return self._config['type']
 

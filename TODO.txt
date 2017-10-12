@@ -1,4 +1,3 @@
-Seperate ami_tag and instance_tag
 Create and upload key pair
 Try out on fresh AWS setup
 Release to other versions
