@@ -13,7 +13,7 @@ def launch(args):
     conf.set_az(az.zone_name)
 
     instance = spot_instance.request(client, conf)
-    _log_instance_creation(instance)
+    _log_instance_creation(instance, conf)
 
 
 def _log_launching(az):
@@ -21,6 +21,7 @@ def _log_launching(az):
     print(str(az))
 
 
-def _log_instance_creation(instance):
-    print(">> Instance launched:")
-    print(str(instance.ip_address))
+def _log_instance_creation(instance, conf):
+    print(">> Instance launched, connect with:")
+    ip = str(instance.ip_address)
+    print("ssh -i ~/.ssh/" + conf.key_name + " ubuntu@" + ip)

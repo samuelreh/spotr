@@ -25,5 +25,5 @@ class TestLaunch(unittest.TestCase):
 
         client_build.return_value = Mock(boto3.client('ec2'))
         pricing_get_az.return_value = Mock(name='us-east-1a')
-        spot_request.return_value = Mock(ip='10.0.0.1')
+        spot_request.return_value = Mock(ip_address='10.0.0.1')
         response = launch(args)
