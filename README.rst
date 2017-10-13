@@ -2,7 +2,9 @@
 Spotr
 ===============================
 
-Spotr simplifies launching, snapshotting and destroying an AWS spot instance.
+Spotr simplifies launching, snapshotting and destroying AWS spot instances.
+
+It's designed for users wanting to use a spot instance as a development box, and persist the state in between sessions.
 
 Quick Start
 -----------
@@ -32,3 +34,13 @@ When you're done with the instance, create a snapshot and destroy it with:
 .. code-block:: sh
 
   $ spotr destroy
+
+You can save default configurations in ``~/.spotr/config``:
+
+.. code-block:: ini
+
+    [config]
+    key_name=aws-key-fast-ai
+    max_bid=.030
+    ami-tag=spotr
+    type=p2.xlarge
