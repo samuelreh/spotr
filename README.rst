@@ -2,7 +2,7 @@
 Spotr
 ===============================
 
-Spotr simplifies launching and destroying an AWS spot instance.
+Spotr simplifies launching, snapshotting and destroying an AWS spot instance.
 
 Quick Start
 -----------
@@ -27,7 +27,7 @@ Then, from a Python interpreter:
 
   $ spotr launch --type p2.xlarge --ami ami-4bf20033 --max-bid .030 --key-name aws-key-fast-ai
 
-When you're done with the instance, create a snapshot and detroy it with:
+When you're done with the instance, create a snapshot and destroy it with:
 
 .. code-block:: sh
 
