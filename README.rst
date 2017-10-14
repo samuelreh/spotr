@@ -23,19 +23,19 @@ Next, set up credentials and region (in e.g. ``~/.aws/config``):
     aws_secret_access_key = YOUR_SECRET
     region=us-west-1
 
-Then, from a Python interpreter:
+Then, launch an instance using:
 
 .. code-block:: sh
 
-  $ spotr launch --type p2.xlarge --ami ami-4bf20033 --max-bid .030 --key-name aws-key-fast-ai
+  $ spotr launch --type p2.xlarge --ami ami-4bf20033 --max-bid .30 --key-name aws-key-fast-ai
 
-When you're done with the instance, create a snapshot and destroy it with:
+When you're done with the instance, use the destroy command to create a snapshot and destroy the instance:
 
 .. code-block:: sh
 
   $ spotr destroy
 
-You can save default configurations in ``~/.spotr/config``:
+You can specify default configurations in ``~/.spotr/config``:
 
 .. code-block:: ini
 
