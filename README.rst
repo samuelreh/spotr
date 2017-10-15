@@ -27,13 +27,19 @@ Then, launch an instance using:
 
 .. code-block:: sh
 
-  $ spotr launch --type p2.xlarge --ami ami-4bf20033 --max-bid .30 --key-name aws-key-fast-ai
+  $ spotr launch --type p2.xlarge --max-bid .30 --key-name aws-key-fast-ai --ami ami-4bf20033
 
-When you're done with the instance, use the destroy command to create a snapshot and destroy the instance:
+When you're done working, you can save the current state (take a snapshot) and destroy the instance using:
 
 .. code-block:: sh
 
   $ spotr destroy
+  
+Next time you launch an instance, leave out the `--ami` tag and you'll get the snapshot of where you left off.
+
+.. code-block:: sh
+
+  $ spotr launch --type p2.xlarge --max-bid .30 --key-name aws-key-fast-ai
 
 You can specify default configurations in ``~/.spotr/config``:
 
@@ -41,6 +47,5 @@ You can specify default configurations in ``~/.spotr/config``:
 
     [config]
     key_name=aws-key-fast-ai
-    max_bid=.030
-    ami-tag=spotr
+    max_bid=.30
     type=p2.xlarge
