@@ -15,7 +15,7 @@ def request(client, config):
 def _perform_request(client, config):
     random_id = str(random.random() * 1000)
     response = client.request_spot_instances(
-        SpotPrice=str(config.max_bid),
+        SpotPrice=config.max_bid,
         ClientToken=random_id,
         InstanceCount=1,
         Type='one-time',
@@ -25,8 +25,7 @@ def _perform_request(client, config):
             'InstanceType': config.type,
             'Placement': {
                 'AvailabilityZone': config.az,
-            },
-            'EbsOptimized': False
+            }
         }
     )
     return response.get('SpotInstanceRequests')[0].get('SpotInstanceRequestId')

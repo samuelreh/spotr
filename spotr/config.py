@@ -5,6 +5,7 @@ from botocore.configloader import raw_config_parse
 
 class Config:
     def __init__(self, client, args):
+        self.client = client
         self._config = raw_config_parse("~/.spotr/config")['config']
         self._config.update({k: v for k, v in vars(args).iteritems() if v})
 
@@ -13,17 +14,11 @@ class Config:
 
     @property
     def ami_tag(self):
-        if 'ami_tag' in self._config:
-            return self._config['ami_tag']
-        else:
-            return 'spotr'
+        return self._config.get('ami_tag', 'spotr')
 
     @property
     def instance_tag(self):
-        if 'instance_tag' in self._config:
-            return self._config['instance_tag']
-        else:
-            return 'spotr'
+        return self._config.get('instance_tag', 'spotr')
 
     @property
     def type(self):
@@ -31,12 +26,12 @@ class Config:
 
     @property
     def max_bid(self):
-        return float(self._config['max_bid'])
+        return self._config.get('max_bid', None)
 
     @property
     def ami(self):
         if 'ami' not in self._config:
-            self._config['ami'] = ami.get_by_tag(client, self.ami_tag)
+            self._config['ami'] = ami.get_by_tag(self.client, self.ami_tag)
         return self._config['ami']
 
     @property

@@ -9,7 +9,6 @@ from availability_zone import AvailabilityZone
 def get_az(client, config):
     zone_names = _get_zone_names(client)
     instance_type = config.type
-    max_bid = config.max_bid
 
     azs = []
     for zone_name in zone_names:
@@ -17,11 +16,7 @@ def get_az(client, config):
         az = AvailabilityZone(zone_name, price_history)
         azs.append(az)
 
-    # Sort the AZs by score and return the best one
-    score_for_az_func = partial(_score, max_bid)
-    sorted_azs = sorted(azs, key=score_for_az_func)
-
-    return sorted_azs[-1]
+    return sorted(azs, key=_score)[0]
 
 
 def _get_zone_names(client):
@@ -43,12 +38,5 @@ def _get_price_history(client, zone_name, instance_type):
     return response.get('SpotPriceHistory', [])
 
 
-def _score(max_bid, az):
-    if az.current_price is None or az.current_price > max_bid:
-        return 0
-
-    current_price_s = max_bid - az.current_price
-    variance_s = -5 * (az.spot_price_variance * az.spot_price_mean)
-    mean_s = 0.5 * (max_bid - az.spot_price_mean)
-
-    return current_price_s + variance_s + mean_s
+def _score(az):
+    return az.current_price
