@@ -3,7 +3,7 @@ import sys
 import time
 
 from botocore.compat import six
-
+from six import add_move, MovedModule
 
 # The unittest module got a significant overhaul
 # in 2.7, so if we're in 2.6 we can use the backported
@@ -14,12 +14,7 @@ else:
     import unittest
 
 
-# Python 3 includes mocking, while 2 requires an extra module.
-if sys.version_info[0] == 2:
-    import mock
-else:
-    from unittest import mock
-
+add_move(MovedModule('mock', 'mock', 'unittest.mock'))
 
 # In python 3, order matters when calling assertEqual to
 # compare lists and dictionaries with lists. Therefore,

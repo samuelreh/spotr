@@ -1,19 +1,21 @@
-import pricing
-import spot_instance
-import client as boto_client
-from config import Config
+from .pricing import get_az
+from .spot_instance import request
+from .instance import tag as tag_instance
+from .instance import get_by_instance_id
+from .client import build as build_client
+from .config import Config
 
 
 def launch(args):
-    client = boto_client.build(args)
+    client = build_client(args)
     conf = Config(client, args)
 
-    az = pricing.get_az(client, conf)
+    az = get_az(client, conf)
     _log_launching(az)
     conf.set_az(az.zone_name)
 
-    instance = spot_instance.request(client, conf)
-    _log_instance_creation(instance, conf)
+    inst = request(client, conf, tag_instance, get_by_instance_id)
+    _log_instance_creation(inst, conf)
 
 
 def _log_launching(az):

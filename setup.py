@@ -4,27 +4,11 @@ import os.path
 import re
 import sys
 from setuptools import find_packages, setup
-from spotr import __version__
-
-here = os.path.abspath(os.path.dirname(__file__))
-
-def read(*parts):
-    return codecs.open(os.path.join(here, *parts), 'r').read()
-
-def find_version(*file_paths):
-    version_file = read(*file_paths)
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
-                              version_file, re.M)
-    if version_match:
-        return version_match.group(1)
-    raise RuntimeError("Unable to find version string.")
-
-
-requires = ['boto3==1.4.7']
+from spotr import version
 
 setup(
     name = 'spotr',
-    version = __version__,
+    version = version.VERSION,
     description = '',
     long_description=open('README.rst').read(),
     url = 'https://github.com/samuelreh/spotr',
@@ -44,13 +28,12 @@ setup(
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ],
     keywords = 'cli',
     packages = find_packages(exclude=['docs', 'tests*']),
-    install_requires = ['docopt'],
-    extras_require = {
-        'test': ['coverage', 'pytest', 'pytest-cov'],
-    },
+    install_requires = ['docopt', 'boto3'],
+    test_require=['coverage', 'pytest', 'pytest-cov', 'mock'],
     entry_points = {
         'console_scripts': [
             'spotr=spotr.spotr:main',

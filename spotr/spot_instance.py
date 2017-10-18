@@ -1,15 +1,13 @@
 import time
 import random
 
-import instance
 
-
-def request(client, config):
+def request(client, config, tag, get_by_instance_id):
     request_id = _perform_request(client, config)
     _wait_until_completed(client, request_id)
     instance_id = _get_status(client, request_id)
-    instance.tag(client, instance_id, config)
-    return instance.get_by_instance_id(client, instance_id)
+    tag(client, instance_id, config)
+    return get_by_instance_id(client, instance_id)
 
 
 def _perform_request(client, config):

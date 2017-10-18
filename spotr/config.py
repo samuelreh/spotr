@@ -1,5 +1,6 @@
-import ami
+from .ami import get_by_tag
 import boto3
+import six
 from botocore.configloader import raw_config_parse
 
 
@@ -7,7 +8,7 @@ class Config:
     def __init__(self, client, args):
         self.client = client
         self._config = raw_config_parse("~/.spotr/config")['config']
-        self._config.update({k: v for k, v in vars(args).iteritems() if v})
+        self._config.update({k: v for k, v in six.iteritems(vars(args)) if v})
 
     def set_az(self, az):
         self._config['az'] = az
@@ -31,7 +32,7 @@ class Config:
     @property
     def ami(self):
         if 'ami' not in self._config:
-            self._config['ami'] = ami.get_by_tag(self.client, self.ami_tag)
+            self._config['ami'] = get_by_tag(self.client, self.ami_tag)
         return self._config['ami']
 
     @property

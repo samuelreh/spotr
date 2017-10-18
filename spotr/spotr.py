@@ -2,9 +2,11 @@ import argparse
 
 import launch
 import destroy
+import version
+
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--version', action='version', version='0.0.2')
+parser.add_argument('--version', action='version', version=version.VERSION)
 subparsers = parser.add_subparsers()
 
 launch_parser = subparsers.add_parser('launch')

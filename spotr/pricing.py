@@ -1,9 +1,7 @@
 import datetime
 import boto3
 
-from functools import partial
-
-from availability_zone import AvailabilityZone
+from .availability_zone import AvailabilityZone
 
 
 def get_az(client, config):
