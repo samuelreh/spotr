@@ -12,7 +12,7 @@ def destroy(args):
     _log_snapshot(instance)
     snap = create_and_wait(client, instance.volume_id)
     _log_destroying()
-    destroy_instance(client, instance.id)
+    return destroy_instance(client, instance.id)
 
 
 def _log_snapshot(instance):

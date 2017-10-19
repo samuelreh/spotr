@@ -16,6 +16,7 @@ def launch(args):
 
     inst = request(client, conf, tag_instance, get_by_instance_id)
     _log_instance_creation(inst, conf)
+    return inst
 
 
 def _log_launching(az):
