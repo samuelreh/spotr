@@ -1,6 +1,5 @@
 Create and upload key pair
 Try out on fresh AWS setup
-Release to other versions
 
 Don't finish until fully initialized
 Add animation while launching

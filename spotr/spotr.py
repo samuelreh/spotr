@@ -47,3 +47,12 @@ destroy_parser.add_argument(
     '--aws-secret-access-key',
     help='the secret access key to use')
 destroy_parser.set_defaults(func=destroy)
+
+
+def main():
+    args = parser.parse_args()
+    args.func(args)
+
+
+if __name__ == '__main__':
+    main()

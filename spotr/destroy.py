@@ -1,5 +1,6 @@
 from .snapshot import create_and_wait
 from .instance import find_latest as find_latest_instance
+from .instance import destroy as destroy_instance
 from .client import build as build_client
 from .config import Config
 
@@ -11,7 +12,7 @@ def destroy(args):
     _log_snapshot(instance)
     snap = create_and_wait(client, instance.volume_id)
     _log_destroying()
-    ec2_instance.destroy(client, instance.id)
+    destroy_instance(client, instance.id)
 
 
 def _log_snapshot(instance):
