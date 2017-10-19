@@ -1,12 +1,12 @@
 import argparse
 
-import launch
-import destroy
-import version
+from .launch import launch
+from .destroy import destroy
+from .version import VERSION
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--version', action='version', version=version.VERSION)
+parser.add_argument('--version', action='version', version=VERSION)
 subparsers = parser.add_subparsers()
 
 launch_parser = subparsers.add_parser('launch')
@@ -34,7 +34,7 @@ launch_parser.add_argument(
 launch_parser.add_argument(
     '--key-name',
     help='name of the aws key pair to use')
-launch_parser.set_defaults(func=launch.launch)
+launch_parser.set_defaults(func=launch)
 
 destroy_parser = subparsers.add_parser('destroy')
 destroy_parser.add_argument(
@@ -46,13 +46,4 @@ destroy_parser.add_argument(
 destroy_parser.add_argument(
     '--aws-secret-access-key',
     help='the secret access key to use')
-destroy_parser.set_defaults(func=destroy.destroy)
-
-
-def main():
-    args = parser.parse_args()
-    args.func(args)
-
-
-if __name__ == '__main__':
-    main()
+destroy_parser.set_defaults(func=destroy)
