@@ -10,7 +10,6 @@ class TestDestroy(unittest.TestCase):
     @mock.patch('spotr.snapshot.create_and_wait')
     @mock.patch('spotr.client.build')
     def runTest(self, client_build, create_and_wait, find_latest_instance, destroy_instance):
-        print(client_build)
         attrs = {
             '__dict__': {
                 'max_bid': 0.30,

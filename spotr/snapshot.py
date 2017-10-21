@@ -16,7 +16,7 @@ def create_and_wait(client, volume_id):
 
 def create(client, volume_id):
     response = client.create_snapshot(
-        Description="Spotter snapshot",
+        Description="Spotr snapshot",
         VolumeId=volume_id)
     return Snapshot(response)
 

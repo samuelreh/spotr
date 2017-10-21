@@ -27,7 +27,7 @@ class Config:
 
     @property
     def max_bid(self):
-        return self._config.get('max_bid', None)
+        return self._config.get('max_bid')
 
     @property
     def ami(self):
@@ -37,7 +37,7 @@ class Config:
 
     @property
     def key_name(self):
-        return self._config['key_name']
+        return self._config.get('key_name', 'spotr')
 
     @property
     def az(self):
