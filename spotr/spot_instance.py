@@ -1,4 +1,3 @@
-import time
 import random
 
 
@@ -7,6 +6,7 @@ def request(client, config, tag, get_by_instance_id):
     _wait_until_completed(client, request_id)
     instance_id = _get_status(client, request_id)
     tag(client, instance_id, config)
+    _wait_until_running(client, instance_id)
     return get_by_instance_id(client, instance_id)
 
 
@@ -39,3 +39,8 @@ def _get_status(client, request_id):
         SpotInstanceRequestIds=[request_id],
     )
     return response.get('SpotInstanceRequests')[0].get('InstanceId')
+
+
+def _wait_until_running(client, instance_id):
+    waiter = client.get_waiter('instance_running')
+    return waiter.wait(InstanceIds=[instance_id])

@@ -1,9 +1,5 @@
-Create and upload key pair
 Try out on fresh AWS setup
 
-Don't finish until fully initialized
-Add animation while launching
 Handle bid too low request, cancel the request
-Create status endpoint (list all spot instances)
 Allow destroying by instance id
 Allow skiping snapshot on destroy
