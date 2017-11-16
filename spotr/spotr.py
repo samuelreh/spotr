@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 from .launch import launch
 from .destroy import destroy
@@ -50,8 +51,11 @@ destroy_parser.set_defaults(func=destroy)
 
 
 def main():
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(1)
     args = parser.parse_args()
-    args.func(args)
+    args.func()
 
 
 if __name__ == '__main__':
