@@ -22,7 +22,7 @@ class TestSpotInstance(unittest.TestCase):
             },
             'describe_spot_instance_requests.return_value': {
                 'SpotInstanceRequests': [
-                    {'InstanceId': '123456'}
+                    {'InstanceId': '123456', 'Status': { 'Code': 'fulfilled' } }
                 ]
             }
 

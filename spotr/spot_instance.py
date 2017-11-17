@@ -1,13 +1,22 @@
 import random
+import time
 
 
 def request(client, config, tag, get_by_instance_id):
     request_id = _perform_request(client, config)
+    time.sleep(2)
+
+    request = _describe_request(client, request_id)
+    if request.status_code == 'price-too-low':
+        raise RuntimeError(request.status_message)
+
     _wait_until_completed(client, request_id)
-    instance_id = _get_status(client, request_id)
-    tag(client, instance_id, config)
-    _wait_until_running(client, instance_id)
-    return get_by_instance_id(client, instance_id)
+    request = _describe_request(client, request_id)
+
+    tag(client, request.instance_id, config)
+    _wait_until_running(client, request.instance_id)
+
+    return get_by_instance_id(client, request.instance_id)
 
 
 def _perform_request(client, config):
@@ -34,13 +43,19 @@ def _wait_until_completed(client, request_id):
     return waiter.wait(SpotInstanceRequestIds=[request_id])
 
 
-def _get_status(client, request_id):
+def _describe_request(client, request_id):
     response = client.describe_spot_instance_requests(
         SpotInstanceRequestIds=[request_id],
     )
-    return response.get('SpotInstanceRequests')[0].get('InstanceId')
+    return SpotInstanceRequest(response.get('SpotInstanceRequests')[0])
 
 
 def _wait_until_running(client, instance_id):
     waiter = client.get_waiter('instance_running')
     return waiter.wait(InstanceIds=[instance_id])
+
+class SpotInstanceRequest():
+    def __init__(this, response):
+        this.instance_id = response.get('InstanceId')
+        this.status_code = response.get('Status').get('Code')
+        this.status_message = response.get('Status').get('Message')
