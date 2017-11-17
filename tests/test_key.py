@@ -5,7 +5,7 @@ from mock import Mock, patch
 import os
 
 
-class TestDestroy(unittest.TestCase):
+class TestKey(unittest.TestCase):
     @mock.patch('os.path.exists')
     @mock.patch('os.open')
     @mock.patch('os.fdopen')

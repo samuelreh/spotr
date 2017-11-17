@@ -29,13 +29,19 @@ Then, launch an instance using:
 
   $ spotr launch --type p2.xlarge --max-bid .30 --ami ami-4bf20033
 
-When you're done working, you can save the current state (take a snapshot) and destroy the instance using:
+When you're done working, you can save the current state (take a snapshot) using:
+
+.. code-block:: sh
+
+  $ spotr snapshot
+
+And then to terminate the instance:
 
 .. code-block:: sh
 
   $ spotr destroy
   
-Next time you launch an instance, leave out the `--ami` tag and you'll get the snapshot of where you left off.
+Next time you launch an instance, leave out the `--ami` tag and you'll restore the most recent snapshot taken with spotr.
 
 .. code-block:: sh
 

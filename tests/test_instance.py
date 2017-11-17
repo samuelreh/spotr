@@ -7,8 +7,8 @@ from six.moves import mock
 import spotr.instance as instance
 
 
-class TestInstanceFindLatest(unittest.TestCase):
-    def runTest(self):
+class TestInstance(unittest.TestCase):
+    def test_find_latest(self):
         mock_config = mock.Mock(instance_tag='spotr')
         fake_client, config = mock_client()
         latest_instance = instance.find_latest(fake_client, mock_config)
@@ -17,9 +17,14 @@ class TestInstanceFindLatest(unittest.TestCase):
         self.assertEqual(latest_instance.launch_time, config['launch_time'])
         self.assertEqual(latest_instance.ip_address, config['ip_address'])
 
+    def test_find_latest_none_found(self):
+        mock_config = mock.Mock(instance_tag='spotr')
+        fake_client = mock_client_no_reservations()
+        with self.assertRaises(RuntimeError) as context:
+            instance.find_latest(fake_client, mock_config)
+        self.assertTrue('No running spotr instances found' in repr(context.exception))
 
-class TestInstanceGetByInstanceId(unittest.TestCase):
-    def runTest(self):
+    def test_get_by_instance_id(self):
         fake_client, config = mock_client()
         insta = instance.get_by_instance_id(fake_client, config['instance_id'])
         self.assertEqual(insta.id, config['instance_id'])
@@ -54,3 +59,14 @@ def mock_client():
     }
     fake_client.configure_mock(**attrs)
     return fake_client, config
+
+def mock_client_no_reservations():
+    fake_client = mock.Mock(boto3.client('ec2'))
+    attrs = {
+        'describe_instances.return_value': {
+            'Reservations': []
+        }
+
+    }
+    fake_client.configure_mock(**attrs)
+    return fake_client

@@ -3,6 +3,7 @@ import sys
 
 from .launch import launch
 from .destroy import destroy
+from .snapshot import snapshot
 from .version import VERSION
 
 
@@ -37,10 +38,22 @@ launch_parser.add_argument(
     help='name of the aws key pair to use')
 launch_parser.set_defaults(func=launch)
 
+destroy_parser = subparsers.add_parser('snapshot')
+destroy_parser.add_argument(
+    '--region',
+    help='the region of the launched spotr instance')
+destroy_parser.add_argument(
+    '--aws-access-key-id',
+    help='the access key id to use')
+destroy_parser.add_argument(
+    '--aws-secret-access-key',
+    help='the secret access key to use')
+destroy_parser.set_defaults(func=snapshot)
+
 destroy_parser = subparsers.add_parser('destroy')
 destroy_parser.add_argument(
     '--region',
-    help='the region to launch the instance in')
+    help='the region of the launched spotr instance')
 destroy_parser.add_argument(
     '--aws-access-key-id',
     help='the access key id to use')
@@ -55,7 +68,7 @@ def main():
         parser.print_help()
         sys.exit(1)
     args = parser.parse_args()
-    args.func()
+    args.func(args)
 
 
 if __name__ == '__main__':

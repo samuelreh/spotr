@@ -16,11 +16,19 @@ class InstanceList():
     def latest(self):
         return sorted(self.instances, key=lambda i: i.launch_time)[0]
 
+    def __len__(self):
+        return len(self.instances)
+
 
 def find_latest(client, config):
     instance_response = client.describe_instances(
         Filters=[{'Name': 'tag:project', 'Values': [config.instance_tag]}])
-    return InstanceList(instance_response).latest()
+    instance_list = InstanceList(instance_response)
+
+    if len(instance_list) == 0:
+        raise RuntimeError("No running spotr instances found")
+
+    return instance_list.latest()
 
 
 def destroy(client, instance_id):
