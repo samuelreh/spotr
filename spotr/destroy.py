@@ -13,4 +13,10 @@ def destroy(args):
 
     with spin(">> Destroying instance."):
         destroyed = destroy_instance(client, instance.id)
+
+    _log_instance_destroyed(instance)
+
     return destroyed
+
+def _log_instance_destroyed(instance):
+    print(">> Instance {0} destroyed".format(instance.id))

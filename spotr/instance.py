@@ -12,7 +12,8 @@ class InstanceList():
         self.instances = []
         for reservation in response['Reservations']:
             for insta in reservation['Instances']:
-                self.instances.append(Instance(insta))
+                if 'PublicIpAddress' in insta:
+                    self.instances.append(Instance(insta))
 
     def latest(self):
         return sorted(self.instances, key=lambda i: i.launch_time)[0]
@@ -48,26 +49,31 @@ def get_by_instance_id(client, instance_id):
     return Instance(response['Reservations'][0]['Instances'][0])
 
 def open_port(client, instance, port):
-    client.authorize_security_group_ingress(
-        GroupId = instance.security_groups[0].get('GroupId'),
-        IpPermissions=[
-            {
-                'FromPort': port,
-                'IpProtocol': 'TCP',
-                'IpRanges': [
-                    {
-                        'CidrIp': '0.0.0.0/0',
-                        'Description': 'Spotr Jupyter Port'
-                    },
-                ],
-                'Ipv6Ranges': [
-                    {
-                        'CidrIpv6': '::/0',
-                        'Description': 'Spotr Jupyter Port'
-                    },
-                ],
-                'ToPort': port
-            }
-        ]
-    )
+    group_id = instance.security_groups[0].get('GroupId')
+    group = client.describe_security_groups(GroupIds=[group_id])['SecurityGroups'][0]
+    matching_rules = (x for x in group['IpPermissions'] if x['FromPort'] == port and x['ToPort'] == port)
+    first_matching_rule = next(matching_rules, None)
+    if not first_matching_rule:
+        client.authorize_security_group_ingress(
+            GroupId = group_id,
+            IpPermissions=[
+                {
+                    'FromPort': port,
+                    'IpProtocol': 'TCP',
+                    'IpRanges': [
+                        {
+                            'CidrIp': '0.0.0.0/0',
+                            'Description': 'Spotr Jupyter Port'
+                        },
+                    ],
+                    'Ipv6Ranges': [
+                        {
+                            'CidrIpv6': '::/0',
+                            'Description': 'Spotr Jupyter Port'
+                        },
+                    ],
+                    'ToPort': port
+                }
+            ]
+        )
     return True
