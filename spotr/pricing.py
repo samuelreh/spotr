@@ -1,4 +1,5 @@
 import datetime
+import sys
 import boto3
 
 from .availability_zone import AvailabilityZone
@@ -37,4 +38,4 @@ def _get_price_history(client, zone_name, instance_type):
 
 
 def _score(az):
-    return az.current_price
+    return az.current_price or sys.maxsize
