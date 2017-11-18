@@ -2,6 +2,7 @@ from .pricing import get_az
 from .spot_instance import request
 from .instance import tag as tag_instance
 from .instance import get_by_instance_id
+from .instance import open_port
 from .client import build as build_client
 from .config import Config
 from .key import find_or_create as find_or_create_key
@@ -18,7 +19,7 @@ def launch(args):
     conf.set_az(az.zone_name)
 
     with spin("Launching: " + str(az)):
-        inst = request(client, conf, tag_instance, get_by_instance_id)
+        inst = request(client, conf, tag_instance, get_by_instance_id, open_port)
 
     _log_instance_creation(inst, key_path)
 

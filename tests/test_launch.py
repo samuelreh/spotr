@@ -8,7 +8,7 @@ class TestLaunch(unittest.TestCase):
     @mock.patch('spotr.spot_instance.request')
     @mock.patch('spotr.pricing.get_az')
     @mock.patch('spotr.client.build')
-    def runTest(self, client_build, pricing_get_az, spot_request):
+    def runTest(self, client_build, pricing_get_az, request):
         print(client_build)
         attrs = {
             '__dict__': {
@@ -24,7 +24,7 @@ class TestLaunch(unittest.TestCase):
         client_build.return_value = Mock(boto3.client('ec2'))
         pricing_get_az.return_value = Mock(name='us-east-1a')
         spot_instance = Mock(ip_address='10.0.0.1')
-        spot_request.return_value = spot_instance
+        request.return_value = spot_instance
         from spotr import launch
         response = launch.launch(args)
         self.assertEqual(response, spot_instance)

@@ -2,7 +2,7 @@ import random
 import time
 
 
-def request(client, config, tag, get_by_instance_id):
+def request(client, config, tag, get_by_instance_id, open_port):
     request_id = _perform_request(client, config)
     time.sleep(2)
 
@@ -16,7 +16,9 @@ def request(client, config, tag, get_by_instance_id):
     tag(client, request.instance_id, config)
     _wait_until_running(client, request.instance_id)
 
-    return get_by_instance_id(client, request.instance_id)
+    instance = get_by_instance_id(client, request.instance_id)
+    open_port(client, instance, 8888)
+    return instance
 
 
 def _perform_request(client, config):

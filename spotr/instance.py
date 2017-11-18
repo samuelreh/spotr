@@ -4,6 +4,7 @@ class Instance():
         self.volume_id = response['BlockDeviceMappings'][0]['Ebs']['VolumeId']
         self.launch_time = response['LaunchTime']
         self.ip_address = response['PublicIpAddress']
+        self.security_groups = response['SecurityGroups']
 
 
 class InstanceList():
@@ -45,3 +46,28 @@ def tag(client, instance_id, config):
 def get_by_instance_id(client, instance_id):
     response = client.describe_instances(InstanceIds=[instance_id])
     return Instance(response['Reservations'][0]['Instances'][0])
+
+def open_port(client, instance, port):
+    client.authorize_security_group_ingress(
+        GroupId = instance.security_groups[0].get('GroupId'),
+        IpPermissions=[
+            {
+                'FromPort': port,
+                'IpProtocol': 'TCP',
+                'IpRanges': [
+                    {
+                        'CidrIp': '0.0.0.0/0',
+                        'Description': 'Spotr Jupyter Port'
+                    },
+                ],
+                'Ipv6Ranges': [
+                    {
+                        'CidrIpv6': '::/0',
+                        'Description': 'Spotr Jupyter Port'
+                    },
+                ],
+                'ToPort': port
+            }
+        ]
+    )
+    return True

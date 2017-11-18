@@ -32,5 +32,6 @@ class TestSpotInstance(unittest.TestCase):
         instance = mock.Mock()
         tag = mock.Mock()
         get_by_instance_id = mock.Mock(return_value=instance)
-        response = request(fake_client, config, tag, get_by_instance_id)
+        open_port = mock.Mock(return_value=True)
+        response = request(fake_client, config, tag, get_by_instance_id, open_port)
         self.assertEqual(response, instance)

@@ -45,6 +45,7 @@ def mock_client():
                     'Instances': [{
                         'InstanceId': config['instance_id'],
                         'LaunchTime': config['launch_time'],
+                        'SecurityGroups': [{'GroupId': 'sg-1234'}],
                         'PublicIpAddress': config['ip_address'],
                         'BlockDeviceMappings': [{
                             'Ebs': {
