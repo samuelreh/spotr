@@ -6,6 +6,10 @@ class Instance():
         self.ip_address = response['PublicIpAddress']
         self.security_groups = response['SecurityGroups']
 
+    @property
+    def has_security_groups(self):
+        return not len(self.security_groups) == 0
+
 
 class InstanceList():
     def __init__(self, response):
@@ -49,9 +53,11 @@ def get_by_instance_id(client, instance_id):
     return Instance(response['Reservations'][0]['Instances'][0])
 
 def open_port(client, instance, port):
+    if len(instance.security_groups) == 0:
+        raise RuntimeError("No security groups associated with instance")
     group_id = instance.security_groups[0].get('GroupId')
     group = client.describe_security_groups(GroupIds=[group_id])['SecurityGroups'][0]
-    matching_rules = (x for x in group['IpPermissions'] if x['FromPort'] == port and x['ToPort'] == port)
+    matching_rules = (x for x in group['IpPermissions'] if x.get('FromPort') == port and x.get('ToPort') == port)
     first_matching_rule = next(matching_rules, None)
     if not first_matching_rule:
         client.authorize_security_group_ingress(

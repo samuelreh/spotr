@@ -29,7 +29,7 @@ class TestSpotInstance(unittest.TestCase):
         }
         fake_client.configure_mock(**attrs)
 
-        instance = mock.Mock()
+        instance = mock.Mock(has_security_groups=True)
         tag = mock.Mock()
         get_by_instance_id = mock.Mock(return_value=instance)
         open_port = mock.Mock(return_value=True)

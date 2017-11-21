@@ -17,7 +17,8 @@ def request(client, config, tag, get_by_instance_id, open_port):
     _wait_until_running(client, request.instance_id)
 
     instance = get_by_instance_id(client, request.instance_id)
-    open_port(client, instance, 8888)
+    if instance.has_security_groups:
+        open_port(client, instance, 8888)
     return instance
 
 
