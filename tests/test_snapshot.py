@@ -21,9 +21,8 @@ class TestSnapshot(unittest.TestCase):
 
         fake_client = mock.Mock(boto3.client('ec2'))
         attrs = {
-            'create_snapshot.return_value': {
-                'State': 'initiating',
-                'SnapshotId': '1234'
+            'create_image.return_value': {
+                'ImageId': '1234'
             },
             'get_waiter.return_value': mock.Mock(wait=mock.Mock())
         }

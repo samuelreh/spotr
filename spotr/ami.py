@@ -4,5 +4,5 @@ def get_by_tag(client, tag):
     )
     images = response['Images']
     if len(images) == 0:
-        raise RuntimeError("No saved snapshots with tag: '{0}'".format(tag))
+        raise RuntimeError("No saved images with tag: '{0}'".format(tag))
     return images[0]['ImageId']
