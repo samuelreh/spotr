@@ -24,6 +24,10 @@ def request(client, config, tag, get_by_instance_id, open_port):
 
 def _perform_request(client, config):
     random_id = str(random.random() * 1000)
+    if config.security_group_id is None:
+        security_group_ids = []
+    else:
+        security_group_ids = [config.security_group_id]
     response = client.request_spot_instances(
         SpotPrice=config.max_bid,
         ClientToken=random_id,
@@ -35,7 +39,8 @@ def _perform_request(client, config):
             'InstanceType': config.type,
             'Placement': {
                 'AvailabilityZone': config.az,
-            }
+            },
+            'SecurityGroupIds': security_group_ids
         }
     )
     return response.get('SpotInstanceRequests')[0].get('SpotInstanceRequestId')
