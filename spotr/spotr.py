@@ -36,6 +36,9 @@ launch_parser.add_argument(
 launch_parser.add_argument(
     '--key-name',
     help='name of the aws key pair to use')
+launch_parser.add_argument(
+    '--security-group-id',
+    help='security group id for the security group to use')
 launch_parser.set_defaults(func=launch)
 
 destroy_parser = subparsers.add_parser('snapshot')

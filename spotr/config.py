@@ -8,6 +8,7 @@ from botocore.configloader import raw_config_parse
 class Config:
     def __init__(self, client, args, config_file_path = "~/.spotr/config"):
         self.client = client
+        config_file_path = os.path.expanduser(config_file_path)
         if os.path.isfile(config_file_path):
             self._config = raw_config_parse(config_file_path)['config']
         else:
@@ -47,6 +48,9 @@ class Config:
     def az(self):
         return self._config['az']
 
+    @property
+    def security_group_id(self):
+        return self._config.get('security_group_id')
 
     def _get_required(self, key):
         if not self._config.get(key):
