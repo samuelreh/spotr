@@ -39,6 +39,9 @@ launch_parser.add_argument(
 launch_parser.add_argument(
     '--security-group-id',
     help='security group id for the security group to use')
+launch_parser.add_argument(
+    '--subnet-id',
+    help='id of the subnet in which instance needs to be launched')
 launch_parser.set_defaults(func=launch)
 
 destroy_parser = subparsers.add_parser('snapshot')
