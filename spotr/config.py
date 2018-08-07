@@ -52,6 +52,10 @@ class Config:
     def security_group_id(self):
         return self._config.get('security_group_id')
 
+    @property
+    def subnet_id(self):
+        return self._config.get('subnet_id')
+
     def _get_required(self, key):
         if not self._config.get(key):
             raise RuntimeError("Missing required parameter: {0}".format(key))

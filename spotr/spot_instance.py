@@ -27,7 +27,7 @@ def _perform_request(client, config):
     if config.security_group_id is None:
         security_group_ids = []
     else:
-        security_group_ids = [config.security_group_id]
+	security_group_ids = [config.security_group_id]
     response = client.request_spot_instances(
         SpotPrice=config.max_bid,
         ClientToken=random_id,
@@ -40,7 +40,8 @@ def _perform_request(client, config):
             'Placement': {
                 'AvailabilityZone': config.az,
             },
-            'SecurityGroupIds': security_group_ids
+            'SecurityGroupIds': security_group_ids,
+	    'SubnetId':config.subnet_id
         }
     )
     return response.get('SpotInstanceRequests')[0].get('SpotInstanceRequestId')
