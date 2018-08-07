@@ -27,7 +27,7 @@ def _perform_request(client, config):
     if config.security_group_id is None:
         security_group_ids = []
     else:
-	security_group_ids = [config.security_group_id]
+        security_group_ids = [config.security_group_id]
     response = client.request_spot_instances(
         SpotPrice=config.max_bid,
         ClientToken=random_id,
