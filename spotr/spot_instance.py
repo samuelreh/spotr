@@ -17,8 +17,8 @@ def request(client, config, tag, get_by_instance_id, open_port):
     _wait_until_running(client, request.instance_id)
 
     instance = get_by_instance_id(client, request.instance_id)
-    if instance.has_security_groups:
-        open_port(client, instance, 8888)
+    #if instance.has_security_groups:
+        #open_port(client, instance, 8888)
     return instance
 
 
@@ -41,7 +41,8 @@ def _perform_request(client, config):
                 'AvailabilityZone': config.az,
             },
             'SecurityGroupIds': security_group_ids,
-	    'SubnetId':config.subnet_id
+	    'SubnetId':config.subnet_id,
+        'EbsOptimized': config.ebs_optimized
         }
     )
     return response.get('SpotInstanceRequests')[0].get('SpotInstanceRequestId')

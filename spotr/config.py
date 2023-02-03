@@ -56,6 +56,10 @@ class Config:
     def subnet_id(self):
         return self._config.get('subnet_id')
 
+    @property
+    def ebs_optimized(self):
+        return bool(self._config['ebs_optimized'])
+
     def _get_required(self, key):
         if not self._config.get(key):
             raise RuntimeError("Missing required parameter: {0}".format(key))
