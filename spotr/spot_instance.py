@@ -41,7 +41,7 @@ def _perform_request(client, config):
                 'AvailabilityZone': config.az,
             },
             'SecurityGroupIds': security_group_ids,
-	    'SubnetId':config.subnet_id,
+	    'SubnetId': config.subnet_id,
         'EbsOptimized': config.ebs_optimized
         }
     )

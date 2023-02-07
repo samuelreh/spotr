@@ -15,6 +15,14 @@ class Config:
             self._config = {}
         self._config.update({k: v for k, v in six.iteritems(vars(args)) if v})
 
+    def map_subnet_id(self, az):
+        subnet_var = az + "_subnet_id"
+        subnet_id = self._config[subnet_var]
+        return subnet_id
+
+    def set_subnet_id(self, subnet_id):
+        self._config['subnet_id'] = subnet_id
+
     def set_az(self, az):
         self._config['az'] = az
 
@@ -46,6 +54,8 @@ class Config:
 
     @property
     def az(self):
+        if 'az' not in self._config:
+            self._config['az'] = ''
         return self._config['az']
 
     @property
@@ -54,6 +64,8 @@ class Config:
 
     @property
     def subnet_id(self):
+        if 'subnet_id' not in self._config:
+            self._config['subnet_id'] = ''
         return self._config.get('subnet_id')
 
     @property
