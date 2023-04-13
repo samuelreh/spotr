@@ -54,3 +54,14 @@ You can specify default configurations in ``~/.spotr/config``:
     [config]
     max_bid=.30
     type=p2.xlarge
+    ebs_optimized=true
+    security_group_id=sg-XXXXXXXXXXXXXXX
+    ami=ami-XXXXXXXXXXXXXXXX
+    us-west-2a_subnet_id=subnet-XXXXXXXX
+    us-west-2b_subnet_id=subnet-XXXXXXXX
+    us-west-2c_subnet_id=subnet-XXXXXXXX
+    us-west-2d_subnet_id=subnet-XXXXXXXX
+    iam_instance_profile_arn=arn:aws:iam::XXXXXXXX:instance-profile/instance-profile-role
+    user_data=#cloud-config
+        runcmd:
+            - [ sh, -c, "/bin/bash /opt/dosomethinguseful.sh" ]
