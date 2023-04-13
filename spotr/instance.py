@@ -1,4 +1,4 @@
-class Instance():
+class Instance:
     def __init__(self, response):
         self.id = response['InstanceId']
         self.volume_id = response['BlockDeviceMappings'][0]['Ebs']['VolumeId']
@@ -11,7 +11,7 @@ class Instance():
         return not len(self.security_groups) == 0
 
 
-class InstanceList():
+class InstanceList:
     def __init__(self, response):
         self.instances = []
         for reservation in response['Reservations']:

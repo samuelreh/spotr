@@ -17,8 +17,8 @@ def request(client, config, tag, get_by_instance_id, open_port):
     _wait_until_running(client, request.instance_id)
 
     instance = get_by_instance_id(client, request.instance_id)
-    #if instance.has_security_groups:
-        #open_port(client, instance, 8888)
+    # if instance.has_security_groups:
+    # open_port(client, instance, 8888)
     return instance
 
 
@@ -28,6 +28,10 @@ def _perform_request(client, config):
         security_group_ids = []
     else:
         security_group_ids = [config.security_group_id]
+    if config.iam_instance_profile_arn is None:
+        iam_instance_profile_arn = ''
+    else:
+        iam_instance_profile_arn = config.iam_instance_profile_arn
     response = client.request_spot_instances(
         SpotPrice=config.max_bid,
         ClientToken=random_id,
@@ -41,8 +45,11 @@ def _perform_request(client, config):
                 'AvailabilityZone': config.az,
             },
             'SecurityGroupIds': security_group_ids,
-	    'SubnetId': config.subnet_id,
-        'EbsOptimized': config.ebs_optimized
+            'SubnetId': config.subnet_id,
+            'EbsOptimized': config.ebs_optimized,
+            'IamInstanceProfile': {
+                "Arn": iam_instance_profile_arn,
+            }
         }
     )
     return response.get('SpotInstanceRequests')[0].get('SpotInstanceRequestId')
@@ -64,7 +71,8 @@ def _wait_until_running(client, instance_id):
     waiter = client.get_waiter('instance_running')
     return waiter.wait(InstanceIds=[instance_id])
 
-class SpotInstanceRequest():
+
+class SpotInstanceRequest:
     def __init__(this, response):
         this.instance_id = response.get('InstanceId')
         this.status_code = response.get('Status').get('Code')

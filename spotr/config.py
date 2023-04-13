@@ -1,12 +1,11 @@
 from .ami import get_by_tag
-import boto3
 import six
 import os.path
 from botocore.configloader import raw_config_parse
 
 
 class Config:
-    def __init__(self, client, args, config_file_path = "~/.spotr/config"):
+    def __init__(self, client, args, config_file_path="~/.spotr/config"):
         self.client = client
         config_file_path = os.path.expanduser(config_file_path)
         if os.path.isfile(config_file_path):
@@ -71,6 +70,10 @@ class Config:
     @property
     def ebs_optimized(self):
         return bool(self._config['ebs_optimized'])
+
+    @property
+    def iam_instance_profile_arn(self):
+        return self._config.get('iam_instance_profile_arn')
 
     def _get_required(self, key):
         if not self._config.get(key):
