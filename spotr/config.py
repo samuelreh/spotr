@@ -75,6 +75,10 @@ class Config:
     def iam_instance_profile_arn(self):
         return self._config.get('iam_instance_profile_arn')
 
+    @property
+    def user_data(self):
+        return self._config.get('user_data')
+
     def _get_required(self, key):
         if not self._config.get(key):
             raise RuntimeError("Missing required parameter: {0}".format(key))

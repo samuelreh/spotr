@@ -1,6 +1,6 @@
 import random
 import time
-
+import base64
 
 def request(client, config, tag, get_by_instance_id, open_port):
     request_id = _perform_request(client, config)
@@ -32,6 +32,11 @@ def _perform_request(client, config):
         iam_instance_profile_arn = ''
     else:
         iam_instance_profile_arn = config.iam_instance_profile_arn
+    if config.user_data is None:
+        user_data = ''
+    else:
+        user_data = config.user_data.encode('ascii')
+        user_data = base64.b64encode(bytes(user_data)).decode('ascii')
     response = client.request_spot_instances(
         SpotPrice=config.max_bid,
         ClientToken=random_id,
@@ -49,7 +54,8 @@ def _perform_request(client, config):
             'EbsOptimized': config.ebs_optimized,
             'IamInstanceProfile': {
                 "Arn": iam_instance_profile_arn,
-            }
+            },
+            'UserData': user_data
         }
     )
     return response.get('SpotInstanceRequests')[0].get('SpotInstanceRequestId')
