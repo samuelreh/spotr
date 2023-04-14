@@ -8,13 +8,18 @@ It's designed for users wanting to use a spot instance as a development box, and
 
 Quick Start
 -----------
-First, install the library and set a default region:
+First, install the library from pip or clone this git repository and install locally:
 
 .. code-block:: sh
 
     $ pip install spotr
+or
 
-Next, set up credentials and region (in e.g. ``~/.aws/config``):
+.. code-block:: sh
+
+    $ pip install -e .
+
+Next, set up credentials and region (in ``~/.aws/config``):
 
 .. code-block:: ini
 
