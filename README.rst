@@ -34,6 +34,12 @@ Then, launch an instance using:
 
   $ spotr launch --type p2.xlarge --max-bid .30 --ami ami-4bf20033
 
+List your running spotr instances with:
+
+.. code-block:: sh
+
+  $ spotr list
+
 When you're done working, you can save the current state (take a snapshot) using:
 
 .. code-block:: sh

@@ -37,6 +37,14 @@ def find_latest(client, config):
     return instance_list.latest()
 
 
+def find_instances(client, config):
+    instance_response = client.describe_instances(
+        Filters=[{'Name': 'tag:project', 'Values': [config.instance_tag]}])
+    instance_list = InstanceList(instance_response)
+
+    return instance_list.instances
+
+
 def destroy(client, instance_id):
     return client.terminate_instances(InstanceIds=[instance_id])
 
@@ -52,6 +60,7 @@ def get_by_instance_id(client, instance_id):
     response = client.describe_instances(InstanceIds=[instance_id])
     return Instance(response['Reservations'][0]['Instances'][0])
 
+
 def open_port(client, instance, port):
     if len(instance.security_groups) == 0:
         raise RuntimeError("No security groups associated with instance")
@@ -61,7 +70,7 @@ def open_port(client, instance, port):
     first_matching_rule = next(matching_rules, None)
     if not first_matching_rule:
         client.authorize_security_group_ingress(
-            GroupId = group_id,
+            GroupId=group_id,
             IpPermissions=[
                 {
                     'FromPort': port,

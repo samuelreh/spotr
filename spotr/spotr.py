@@ -4,6 +4,7 @@ import sys
 from .launch import launch
 from .destroy import destroy
 from .snapshot import snapshot
+from .list import list_instances
 from .version import VERSION
 
 
@@ -67,6 +68,18 @@ destroy_parser.add_argument(
     '--aws-secret-access-key',
     help='the secret access key to use')
 destroy_parser.set_defaults(func=destroy)
+
+list_parser = subparsers.add_parser('list')
+list_parser.add_argument(
+    '--region',
+    help='the region of the launched spotr instance')
+list_parser.add_argument(
+    '--aws-access-key-id',
+    help='the access key id to use')
+list_parser.add_argument(
+    '--aws-secret-access-key',
+    help='the secret access key to use')
+list_parser.set_defaults(func=list_instances)
 
 
 def main():
