@@ -79,6 +79,14 @@ class Config:
     def user_data(self):
         return self._config.get('user_data')
 
+    @property
+    def hosted_zone_id(self):
+        return self._config.get('hosted_zone_id')
+
+    @property
+    def record_name(self):
+        return self._config.get('record_name')
+
     def _get_required(self, key):
         if not self._config.get(key):
             raise RuntimeError("Missing required parameter: {0}".format(key))

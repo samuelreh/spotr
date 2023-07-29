@@ -7,6 +7,8 @@ from .client import build as build_client
 from .config import Config
 from .key import find_or_create as find_or_create_key
 from .spin_cursor import spin
+from .dns import build_client as dns_build_client
+from .dns import set_record
 
 
 def launch(args):
@@ -29,6 +31,9 @@ def launch(args):
         inst = request(client, conf, tag_instance, get_by_instance_id, open_port)
 
     _log_instance_creation(inst, key_path)
+
+    if conf.hosted_zone_id and conf.record_name:
+        set_record(dns_build_client(args), inst, conf)
 
     return inst
 

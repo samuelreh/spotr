@@ -2,6 +2,7 @@ import random
 import time
 import base64
 
+
 def request(client, config, tag, get_by_instance_id, open_port):
     request_id = _perform_request(client, config)
     time.sleep(2)
