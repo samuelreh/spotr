@@ -1,9 +1,9 @@
-import boto3
 import time
+
 from .client import build as build_client
+from .config import Config
 from .instance import find_latest as find_latest_instance
 from .instance import tag
-from .config import Config
 from .spin_cursor import spin
 
 
@@ -16,6 +16,7 @@ def snapshot(args):
         snap = create_and_wait(client, instance, conf)
 
     return snap
+
 
 def create_and_wait(client, instance, conf):
     image = create(client, instance)
@@ -44,6 +45,7 @@ def wait_for_completion(client, image):
         ]
     )
 
-class Snapshot():
+
+class Snapshot:
     def __init__(this, response):
         this.id = response['ImageId']

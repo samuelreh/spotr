@@ -1,6 +1,5 @@
 import datetime
 import sys
-import boto3
 
 from .availability_zone import AvailabilityZone
 
