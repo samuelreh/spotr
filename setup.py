@@ -11,6 +11,7 @@ setup(
     version = version.VERSION,
     description = '',
     long_description=open('README.rst').read(),
+    long_description_content_type='text/markdown',
     url = 'https://github.com/samuelreh/spotr',
     author = 'Samuel Reh',
     author_email = 'samuelreh@gmail.com',

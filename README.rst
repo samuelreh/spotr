@@ -12,13 +12,13 @@ First, install the library from pip or clone this git repository and install loc
 
 .. code-block:: sh
 
-    $ pip install spotr
-or
+  $ pip install spotr
 
 .. code-block:: sh
 
     $ pip install -e .
 
+python -m build
 Next, set up credentials and region (in ``~/.aws/config``):
 
 .. code-block:: ini
@@ -77,4 +77,4 @@ You can specify default configurations in ``~/.spotr/config``:
     record_name=subdomain.example.com
     user_data=#cloud-config
         runcmd:
-            - [ sh, -c, "/bin/bash /opt/dosomethinguseful.sh" ]
+            - [ sh, -c, "/bin/bash /opt/dosomethinguseful.sh" ]         
